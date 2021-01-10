@@ -1,0 +1,1 @@
+# PulseAudio client for Node.js
