@@ -1,5 +1,5 @@
 # PulseAudio.js
-[![NPM](https://img.shields.io/npm/v/@janakj/pulseaudio.js.svg?logo=npm&logoColor=fff&label=NPM+package&color=limegreen)](https://www.npmjs.com/package/@janakj/pulseaudio.js)
+[![NPM](https://img.shields.io/npm/v/pulseaudio.js.svg?logo=npm&logoColor=fff&label=NPM+package&color=limegreen)](https://www.npmjs.com/package/pulseaudio.js)
 
 PulseAudio.js is a fully-featured JavaScript (TypeScript) client library for [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio), the sound system used by modern Linux distributions. The client can be used to configure and control the PulseAudio server, play or record audio, and much more. The library is implemented entirely in TypeScript and has no native dependencies. It communicates with the server using the PulseAudio native protocol over a UNIX domain socket. 
 
