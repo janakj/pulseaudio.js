@@ -1,6 +1,6 @@
 {
   "name": "@janakj/pulseaudio.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PulseAudio client for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
