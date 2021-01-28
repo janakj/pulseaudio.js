@@ -19,6 +19,8 @@ export {
     PA_DEFAULT_SOURCE,
     PA_DEFAULT_SINK,
     PA_NO_INDEX,
+    PA_NO_VALUE,
+    PA_MAX_CHANNELS,
     PA_NATIVE_COOKIE_LENGTH,
     PA_SINK_FLAGS,
     PA_SOURCE_FLAGS,
@@ -31,5 +33,7 @@ export {
     PlaybackStream,
     UploadStream,
     RecordStream,
-    sampleSize
+    sampleSize,
+    frameSize,
+    sampleFormatStr
 } from './stream';
