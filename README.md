@@ -19,10 +19,10 @@ PulseAudio.js is free software licensed under the [ISC license](LICENSE).
 # Installation & Basic Usage
 
 ```bash
-npm install @janakj/pulseaudio.js
+npm install pulseaudio.js
 ```
 ```javascript
-import { PulseAudio } from '@janakj/pulseaudio.js';
+import { PulseAudio } from 'pulseaudio.js';
 
 const pa = new PulseAudio();
 
