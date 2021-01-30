@@ -30,7 +30,7 @@ const pa = new PulseAudio();
     await pa.connect();
     console.log(await pa.getServerInfo());
     await pa.disconnect();
-}());
+})();
 ```
 
 # Documentation
