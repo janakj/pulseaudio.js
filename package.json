@@ -11,7 +11,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .js,.ts",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "typedoc": "typedoc --out typedoc src"
   },
   "keywords": [
     "pulseaudio",
