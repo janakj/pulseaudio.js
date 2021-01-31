@@ -35,4 +35,4 @@ const pa = new PulseAudio();
 
 # Documentation
 
-Please refer to the [wiki](https://github.com/janakj/pulseaudio.js/wiki) for documentation and usage examples.
+Please refer to the [wiki](https://github.com/janakj/pulseaudio.js/wiki) for documentation and usage examples. API documentation generated with TypeDoc is available [here](https://janakj.github.io/pulseaudio.js/).
