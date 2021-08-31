@@ -903,3 +903,35 @@ export class GetClientsList extends Command {
         return rv;
     }
 }
+
+
+export class GetSinkInputList extends Command {
+    processResponse(packet: TagStruct) {
+        const rv: Record<string, unknown>[] = [];
+        while (packet.i < packet.body.length) {
+            rv.push({
+                index      : packet.getUInt32(),
+                name       : packet.getString(),
+                module     : packet.getUInt32(),
+                client     : packet.getUInt32(),
+                sink       : packet.getUInt32(),
+                sampleSpec : packet.getSampleSpec(),
+                channelMap : packet.getChannelMap(),
+                volume     : packet.getCvolume(),
+                latency    : {
+                    minimum : packet.getUsec(),
+                    maximum : packet.getUsec()
+                },
+                resampleMethod : packet.getString(),
+                driver         : packet.getString(),
+                muted          : packet.getBool(),
+                properties     : packet.getProps(),
+                corked         : packet.getBool(),
+                hasVolume      : packet.getBool(),
+                writableVolume : packet.getBool(),
+                formatInfo     : packet.getFormatInfo()
+            });
+        }
+        return rv;
+    }
+}

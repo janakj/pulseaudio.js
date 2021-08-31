@@ -489,6 +489,11 @@ export class PulseAudio extends EventEmitter {
         return c.processResponse(await this._invoke(c));
     }
 
+    async getSinkInputList() {
+        const c = new Cmd.GetSinkInputList(PA_COMMAND.GET_SINK_INPUT_INFO_LIST)
+        return c.processResponse(await this._invoke(c))
+      }
+
     async createPlaybackStream(opts: any = {}) {
         const c = new Cmd.CreatePlaybackStream(opts);
         return c.processResponse(await this._invoke(c), this);
