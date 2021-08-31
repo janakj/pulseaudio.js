@@ -886,3 +886,20 @@ export class CreateRecordStream extends CreateStream {
         return s;
     }
 }
+
+
+export class GetClientsList extends Command {
+    processResponse(packet: TagStruct) {
+        const rv: Record<string, unknown>[] = [];
+        while (packet.i < packet.body.length) {
+            rv.push({
+                index       : packet.getUInt32(),
+                name        : packet.getString(),
+                ownerModule : packet.getUInt32(),
+                driver      : packet.getString(),
+                properties  : packet.getProps()
+            })
+        }
+        return rv;
+    }
+}

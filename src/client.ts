@@ -509,4 +509,11 @@ export class PulseAudio extends EventEmitter {
     async removeSample(name: string) {
         await this._invoke(new Cmd.SelectByName(PA_COMMAND.REMOVE_SAMPLE, name));
     }
+
+    // PulseAudio clients
+
+    async getClients() {
+        const c = new Cmd.GetClientsList(PA_COMMAND.GET_CLIENT_INFO_LIST);
+        return c.processResponse(await this._invoke(c));
+    }
 }
