@@ -935,3 +935,25 @@ export class GetSinkInputList extends Command {
         return rv;
     }
 }
+
+
+export class MoveSinkInput extends SelectByIndex {
+    constructor(index: number, sink: number | string) {
+        super(PA_COMMAND.MOVE_SINK_INPUT, index);
+
+        switch (typeof sink) {
+        case 'number':
+            this.addUInt32(sink);
+            this.addString(null);
+            break;
+
+        case 'string':
+            this.addUInt32(PA_NO_INDEX);
+            this.addString(sink);
+            break;
+
+        default:
+            throw new Error('Parameter sink must be number or string')
+        }
+    }
+}
