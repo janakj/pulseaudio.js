@@ -67,7 +67,7 @@ export async function getDefaultAppProps(appName?:string) {
     try {
         (data.process as Props).machine_id = await machineId();
     } catch(error) {
-        if (error.code !== 'ENOENT') throw error;
+        if ((error as any).code !== 'ENOENT') throw error;
     }
 
     if (appName)    data.name    = appName;
@@ -83,7 +83,7 @@ async function loadCookie() {
     try {
         return await fs.readFile(cookieFile);
     } catch (error) {
-        if (error.code === 'ENOENT') {
+        if ((error as any).code === 'ENOENT') {
             debug(`PulseAudio cookie file '${cookieFile}' not found`);
             return undefined;
         }

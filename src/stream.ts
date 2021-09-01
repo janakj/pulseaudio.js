@@ -203,7 +203,7 @@ export class PlaybackStream extends Writable {
             this.dbg(`drained`);
         } catch (error) {
             this.dbg(`drain error: ${error}`);
-            done(error);
+            done(error as any);
             return;
         }
         done();
@@ -219,9 +219,9 @@ export class PlaybackStream extends Writable {
             // For some reason, older PulseAudio versions return the wrong error code PA_ERR_EXIST
             // when the stream being deleted does not exist, so we need to check both
             // error codes here.
-            if (!(error.code === PA_ERR.NOENTITY || error.code === PA_ERR.EXIST)) {
+            if (!((error as any).code === PA_ERR.NOENTITY || (error as any).code === PA_ERR.EXIST)) {
                 this.dbg(`destroy error: ${error}`);
-                err = error;
+                err = error as any;
             }
         } finally {
             this.dbg(`destroyed`);
@@ -322,9 +322,9 @@ export class RecordStream extends Readable {
             // For some reason, PulseAudio returns the wrong error code PA_ERR_EXIST
             // when the stream being deleted does not exist, so we need to check both
             // error codes here.
-            if (!(error.code === PA_ERR.NOENTITY || error.code === PA_ERR.EXIST)) {
+            if (!((error as any).code === PA_ERR.NOENTITY || (error as any).code === PA_ERR.EXIST)) {
                 this.dbg(`destroy error: ${error}`);
-                err = error;
+                err = error as any;
             }
         } finally {
             this.dbg(`destroyed`);

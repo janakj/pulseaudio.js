@@ -202,7 +202,7 @@ export class TagStruct extends Packet {
         return rv;
     }
 
-    addUInt64(value: number | BigInt) {
+    addUInt64(value: number | bigint) {
         this.alloc(9);
         this.body[this.i++] = PA_TAG.U64;
         // eslint-disable-next-line no-undef
