@@ -586,6 +586,37 @@ export class GetSinkInputInfo extends SelectByIndex {
     }
 }
 
+export class GetSourceOutputInfo extends SelectByIndex {
+    constructor(index: number) {
+        super(PA_COMMAND.GET_SOURCE_OUTPUT_INFO, index);
+    }
+
+    processResponse(packet: TagStruct) {
+        //See https://github.com/pulseaudio/pulseaudio/blob/7f4d7fcf5f6407913e50604c6195d0d5356195b1/src/pulsecore/protocol-native.c#L3440
+        return {
+            index      : packet.getUInt32(),
+            name       : packet.getString(),
+            module     : packet.getUInt32(),
+            client     : packet.getUInt32(),
+            source     : packet.getUInt32(),
+            sampleSpec : packet.getSampleSpec(),
+            channelMap : packet.getChannelMap(),
+            latency    : {
+                minimum : packet.getUsec(),
+                maximum : packet.getUsec()
+            },
+            resampleMethod : packet.getString(),
+            driver         : packet.getString(),
+            properties     : packet.getProps(),
+            corked         : packet.getBool(),
+            volume         : packet.getCvolume(),
+            muted          : packet.getBool(),
+            hasVolume      : packet.getBool(),
+            writableVolume : packet.getBool(),
+            formatInfo     : packet.getFormatInfo()
+        }
+    }
+}
 
 type StreamType = "upload" | "playback" | "record";
 

@@ -447,6 +447,11 @@ export class PulseAudio extends EventEmitter {
         await this._invoke(new Cmd.SetMuteByIndex(PA_COMMAND.SET_SOURCE_OUTPUT_MUTE, index, mute));
     }
 
+    async getSourceOutputInfo(...args: ConstructorParameters<typeof Cmd.GetSourceOutputInfo>) {
+        const c = new Cmd.GetSourceOutputInfo(...args);
+        return c.processResponse(await this._invoke(c));
+    }
+
     async createRecordStream(...args: ConstructorParameters<typeof Cmd.CreateRecordStream>) {
         const c = new Cmd.CreateRecordStream(...args);
         return c.processResponse(await this._invoke(c), this);
