@@ -586,35 +586,39 @@ export class GetSinkInputInfo extends SelectByIndex {
     }
 }
 
+//See https://github.com/pulseaudio/pulseaudio/blob/7f4d7fcf5f6407913e50604c6195d0d5356195b1/src/pulsecore/protocol-native.c#L3440
+function parseSourceOutputInfoPacket(packet: TagStruct) {
+    return {
+        index      : packet.getUInt32(),
+        name       : packet.getString(),
+        module     : packet.getUInt32(),
+        client     : packet.getUInt32(),
+        source     : packet.getUInt32(),
+        sampleSpec : packet.getSampleSpec(),
+        channelMap : packet.getChannelMap(),
+        latency    : {
+            minimum : packet.getUsec(),
+            maximum : packet.getUsec()
+        },
+        resampleMethod : packet.getString(),
+        driver         : packet.getString(),
+        properties     : packet.getProps(),
+        corked         : packet.getBool(),
+        volume         : packet.getCvolume(),
+        muted          : packet.getBool(),
+        hasVolume      : packet.getBool(),
+        writableVolume : packet.getBool(),
+        formatInfo     : packet.getFormatInfo()
+    }
+}
+
 export class GetSourceOutputInfo extends SelectByIndex {
     constructor(index: number) {
         super(PA_COMMAND.GET_SOURCE_OUTPUT_INFO, index);
     }
 
     processResponse(packet: TagStruct) {
-        //See https://github.com/pulseaudio/pulseaudio/blob/7f4d7fcf5f6407913e50604c6195d0d5356195b1/src/pulsecore/protocol-native.c#L3440
-        return {
-            index      : packet.getUInt32(),
-            name       : packet.getString(),
-            module     : packet.getUInt32(),
-            client     : packet.getUInt32(),
-            source     : packet.getUInt32(),
-            sampleSpec : packet.getSampleSpec(),
-            channelMap : packet.getChannelMap(),
-            latency    : {
-                minimum : packet.getUsec(),
-                maximum : packet.getUsec()
-            },
-            resampleMethod : packet.getString(),
-            driver         : packet.getString(),
-            properties     : packet.getProps(),
-            corked         : packet.getBool(),
-            volume         : packet.getCvolume(),
-            muted          : packet.getBool(),
-            hasVolume      : packet.getBool(),
-            writableVolume : packet.getBool(),
-            formatInfo     : packet.getFormatInfo()
-        }
+        return parseSourceOutputInfoPacket(packet);
     }
 }
 
@@ -967,6 +971,15 @@ export class GetSinkInputList extends Command {
     }
 }
 
+export class GetSourceOutputList extends Command {
+    processResponse(packet: TagStruct) {
+        const rv: Record<string, unknown>[] = [];
+        while (packet.i < packet.body.length) {
+            rv.push(parseSourceOutputInfoPacket(packet));
+        }
+        return rv;
+    }
+}
 
 export class MoveSinkInput extends SelectByIndex {
     constructor(index: number, sink: number | string) {
