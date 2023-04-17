@@ -981,44 +981,23 @@ export class GetSourceOutputList extends Command {
     }
 }
 
-export class MoveSinkInput extends SelectByIndex {
-    constructor(index: number, sink: number | string) {
-        super(PA_COMMAND.MOVE_SINK_INPUT, index);
+export class Move extends SelectByIndex {
+    constructor(cmd: PA_COMMAND, index: number, inputOrOutput: number | string) {
+        super(cmd, index);
 
-        switch (typeof sink) {
+        switch (typeof inputOrOutput) {
         case 'number':
-            this.addUInt32(sink);
+            this.addUInt32(inputOrOutput);
             this.addString(null);
             break;
 
         case 'string':
             this.addUInt32(PA_NO_INDEX);
-            this.addString(sink);
+            this.addString(inputOrOutput);
             break;
 
         default:
-            throw new Error('Parameter sink must be number or string')
-        }
-    }
-}
-
-export class MoveSourceOutput extends SelectByIndex {
-    constructor(index: number, source: number | string) {
-        super(PA_COMMAND.MOVE_SOURCE_OUTPUT, index);
-
-        switch (typeof source) {
-        case 'number':
-            this.addUInt32(source);
-            this.addString(null);
-            break;
-
-        case 'string':
-            this.addUInt32(PA_NO_INDEX);
-            this.addString(source);
-            break;
-
-        default:
-            throw new Error('Parameter source must be number or string')
+            throw new Error('Parameter inputOrOutput must be number or string')
         }
     }
 }

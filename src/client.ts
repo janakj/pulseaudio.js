@@ -458,7 +458,7 @@ export class PulseAudio extends EventEmitter {
     }
 
     async moveSourceOutput(index: number, source: number | string) {
-        await this._invoke(new Cmd.MoveSourceOutput(index, source));
+        await this._invoke(new Cmd.Move(PA_COMMAND.MOVE_SOURCE_OUTPUT, index, source));
     }
 
     async createRecordStream(...args: ConstructorParameters<typeof Cmd.CreateRecordStream>) {
@@ -509,7 +509,7 @@ export class PulseAudio extends EventEmitter {
     }
 
     async moveSinkInput(index: number, sink: number | string) {
-        await this._invoke(new Cmd.MoveSinkInput(index, sink));
+        await this._invoke(new Cmd.Move(PA_COMMAND.MOVE_SINK_INPUT, index, sink));
     }
 
     async createPlaybackStream(opts: any = {}) {
