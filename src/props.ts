@@ -73,7 +73,13 @@ export function inflate(props: FlatProps): Props {
             if (!(c[i] in l)) l[c[i]] = {};
             l = l[c[i]];
         }
-        l[c[c.length - 1]] = val;
+
+        try {
+            l[c[c.length - 1]] = val;
+        } catch (e) {
+            if (typeof res._weird === 'undefined') res._weird = {};
+            res._weird[key] = val;
+        }
     }
     return res;
 }
